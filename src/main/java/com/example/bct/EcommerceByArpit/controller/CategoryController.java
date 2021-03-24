@@ -1,0 +1,41 @@
+package com.example.bct.EcommerceByArpit.controller;
+
+import com.example.bct.EcommerceByArpit.constants.ApiName;
+import com.example.bct.EcommerceByArpit.entity.Category;
+import com.example.bct.EcommerceByArpit.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.example.bct.EcommerceByArpit.constants.ApiName.ADMIN;
+
+@RestController
+@RequestMapping(value = ADMIN)
+public class CategoryController {
+
+    @Autowired
+    CategoryService categoryService;
+
+    @PostMapping(value = ApiName.CATEGORY_ADD)
+    public Category addCategory(@RequestBody Category category){
+        return categoryService.addCategory(category);
+    }
+
+    @GetMapping(value = ApiName.CATEGORY_GET)
+    public Category getCategoryById(@PathVariable("id") Long id){
+        return categoryService.getCategoryById(id);
+    }
+
+    @GetMapping(value = ApiName.CATEGORY_GETALL)
+    public List<Category> getAllCategory(){
+        return categoryService.getAllCategory();
+    }
+
+    @DeleteMapping(value = ApiName.CATEGORY_DELETE)
+    public String deleteCategoryById(@PathVariable("id") Long id){
+        return categoryService.deleteCategoryById(id);
+    }
+
+
+}
