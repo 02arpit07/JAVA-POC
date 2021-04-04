@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.example.bct.EcommerceByArpit.constants.ApiName.ADMIN;
+import static com.example.bct.EcommerceByArpit.constants.ApiName.COMMON;
 
 @RestController
-@RequestMapping(value = ADMIN)
+@RequestMapping(value = COMMON)
 public class CategoryController {
 
     @Autowired

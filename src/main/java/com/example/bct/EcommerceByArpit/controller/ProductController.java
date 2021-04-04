@@ -2,6 +2,7 @@ package com.example.bct.EcommerceByArpit.controller;
 
 import com.example.bct.EcommerceByArpit.constants.ApiName;
 import com.example.bct.EcommerceByArpit.entity.Product;
+import com.example.bct.EcommerceByArpit.services.CategoryService;
 import com.example.bct.EcommerceByArpit.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,14 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.bct.EcommerceByArpit.constants.ApiName.ADMIN;
+import static com.example.bct.EcommerceByArpit.constants.ApiName.COMMON;
 
 @RestController
-@RequestMapping(value = ADMIN)
+@RequestMapping(value = COMMON)
 public class ProductController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @PostMapping(value = ApiName.PRODUCT_ADD)
     public Product addProduct(@RequestBody Product product){
@@ -39,4 +43,25 @@ public class ProductController {
 
         return productService.deleteProduct(id);
     }
+
+    @GetMapping(value = ApiName.PRODUCT_GETALLBYCATEG)
+    public List<Product> getProductByCateg(@PathVariable("categoryName") String categoryName) {
+
+        return productService.getAllProductByCategory(categoryName);
+    }
+
+    @GetMapping(value = ApiName.PRODUCT_GET_ALL_BY_CATEG_AND_PRICE)
+    public List<Product> getProductByCategAndPrice(@PathVariable(value = "categoryName")String categoryName,
+                                                   @PathVariable(value = "price1")Long price1,
+                                                   @PathVariable(value = "price2")Long price2) {
+
+        return productService.getProductsByCategoryAndPrice(categoryName,price1,price2);
+    }
+
+    @GetMapping(value = ApiName.PRODUCT_GET_ALL_BY_PRICE)
+    public List<Product> getProductByPrice(@PathVariable(value = "price1")Long price1,@PathVariable(value = "price2")Long price2) {
+
+        return productService.getProductsByPrice(price1,price2);
+    }
+
 }

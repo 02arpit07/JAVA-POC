@@ -24,7 +24,7 @@ public class Product {
     private Long price;
 
 //    default of @ManyToOne is EAGER
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false ,cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_category_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Category category;
@@ -38,16 +38,18 @@ public class Product {
     @Column(name = "long_description")
     private String longDescription;
 
+//    @JsonProperty is mentioned because the getters and setters are named differently instead of getIsActice and setIsActive.
+
     @Column(name = "is_active")
     @JsonProperty
     private boolean isActive;
 
     @Column(name = "is_deleted")
-    @JsonProperty
+//    @JsonProperty
     private  boolean isDeleted;
 
     @Column(name = "is_featured")
-    @JsonProperty
+//    @JsonProperty
     private  boolean isFeatured;
 
     @Column(name = "created_on")
@@ -60,10 +62,13 @@ public class Product {
     @JsonFormat(pattern="yyyy-MM-dd" , timezone = "Asia/Kolkata")
     private Date updatedOn;
 
+    @Column(name = "category_name")
+    private String categoryName;
+
     public Product() {
     }
 
-    public Product(String productName, String manufacturerName, Long price, Category category, String imageUrl, String shortDescription, String longDescription, boolean isActive, boolean isDeleted, boolean isFeatured, Date createdOn, Date updatedOn) {
+    public Product(String productName, String manufacturerName, Long price, Category category, String imageUrl, String shortDescription, String longDescription, boolean isActive, boolean isDeleted, boolean isFeatured, Date createdOn, Date updatedOn, String categoryName) {
         this.productName = productName;
         this.manufacturerName = manufacturerName;
         this.price = price;
@@ -76,6 +81,7 @@ public class Product {
         this.isFeatured = isFeatured;
         this.createdOn = createdOn;
         this.updatedOn = updatedOn;
+        this.categoryName = categoryName;
     }
 
     public Long getProductId() {
@@ -142,27 +148,27 @@ public class Product {
         this.longDescription = longDescription;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 
-    public boolean isDeleted() {
+    public boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setIsDeleted(boolean deleted) {
         isDeleted = deleted;
     }
 
-    public boolean isFeatured() {
+    public boolean getIsFeatured() {
         return isFeatured;
     }
 
-    public void setFeatured(boolean featured) {
+    public void setIsFeatured(boolean featured) {
         isFeatured = featured;
     }
 
@@ -180,6 +186,14 @@ public class Product {
 
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override
