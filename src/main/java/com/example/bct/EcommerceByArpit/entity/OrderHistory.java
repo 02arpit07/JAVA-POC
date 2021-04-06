@@ -27,18 +27,21 @@ public class OrderHistory {
     private Long userId;
 
     @Column(name = "product_price")
-    private Double productPrice;
+    private Long productPrice;
 
     @Column(name = "is_delivered")
-    String isDelivered;
+    boolean isDelivered;
 
     @Column(name = "prod_image")
     private String image;
 
+    @Column(name = "prod_quant")
+    private int productQuantity;
+
     public OrderHistory() {
     }
 
-    public OrderHistory(Long productId, String productName, Date orderDate, Long userId, Double productPrice, String isDelivered, String image) {
+    public OrderHistory(Long productId, String productName, Date orderDate, Long userId, Long productPrice, boolean isDelivered, String image, int productQuantity) {
         this.productId = productId;
         this.productName = productName;
         this.orderDate = orderDate;
@@ -46,6 +49,7 @@ public class OrderHistory {
         this.productPrice = productPrice;
         this.isDelivered = isDelivered;
         this.image = image;
+        this.productQuantity = productQuantity;
     }
 
     public Long getOrderId() {
@@ -88,19 +92,19 @@ public class OrderHistory {
         this.userId = userId;
     }
 
-    public Double getProductPrice() {
+    public Long getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Double productPrice) {
+    public void setProductPrice(Long productPrice) {
         this.productPrice = productPrice;
     }
 
-    public String getIsDelivered() {
+    public boolean getIsDelivered() {
         return isDelivered;
     }
 
-    public void setIsDelivered(String isDelivered) {
+    public void setIsDelivered(boolean isDelivered) {
         this.isDelivered = isDelivered;
     }
 
@@ -110,5 +114,13 @@ public class OrderHistory {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity) {
+        this.productQuantity = productQuantity;
     }
 }

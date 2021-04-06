@@ -22,5 +22,9 @@ public class ApiName {
     public static final String USER_DELETE = "user/delete/{id}";
     public static final String USER_GETAll = "user/all";
 
-
+    public static final String ADD_TO_CART = "addToWishList/{productId}";
+    public static final String SUBTRACT_ONE_FROM_WISHLIST = "removeOneFromWishlist/{productId}";
+    public static final String  REMOVE_FROM_CART = "removeFromCart/{productId}";
+    public static final String  SHOW_CART = "/showCart";
+    public static final String  CHECKOUT = "/checkout";
 }

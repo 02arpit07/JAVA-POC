@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -49,5 +50,10 @@ public class UserService {
         user = userList.stream().filter(e->e.getUserId()==id).findFirst().get();
         userRepository.delete(user);
         return "DELETED "+user.getFirstName()+" "+user.getLastName();
+    }
+
+    public Long getUserId(Principal principal) {
+        String email=principal.getName();
+        return userRepository.getUsersByEmail(email).getUserId();
     }
 }

@@ -12,12 +12,12 @@ import java.util.List;
 @Repository
 public interface WishListRepository extends JpaRepository<WishList,Long> {
 
-    Object findByUsersAndProduct(User user, Product product);
+    Object findByUserAndProduct(User user, Product product);
 
-    List<WishList> findByUsers(User users);
+    List<WishList> findByUser(User user);
 
-    String deleteAllByUsersAndProduct(User users, Product product);
+    String deleteAllByUserAndProduct(User user, Product product);
 
-    ArrayList<WishList> findAllByUsers(User users);
+    ArrayList<WishList> findAllByUser(User user);
 
 }
