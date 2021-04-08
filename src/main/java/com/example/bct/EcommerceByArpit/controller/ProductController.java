@@ -5,10 +5,12 @@ import com.example.bct.EcommerceByArpit.entity.Product;
 import com.example.bct.EcommerceByArpit.services.CategoryService;
 import com.example.bct.EcommerceByArpit.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.example.bct.EcommerceByArpit.constants.ApiName.COMMON;
 
@@ -22,6 +24,7 @@ public class ProductController {
     @Autowired
     CategoryService categoryService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = ApiName.PRODUCT_ADD)
     public Product addProduct(@RequestBody Product product){
         return productService.addOneProduct(product);
@@ -38,6 +41,7 @@ public class ProductController {
         return productService.getProduct(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = ApiName.PRODUCT_DELETE)
     public List<Product> deleteProductById(@PathVariable("id") Long id) {
 
@@ -62,6 +66,15 @@ public class ProductController {
     public List<Product> getProductByPrice(@PathVariable(value = "price1")Long price1,@PathVariable(value = "price2")Long price2) {
 
         return productService.getProductsByPrice(price1,price2);
+    }
+
+    @GetMapping(ApiName.SEARCH_PRODUCT)
+    public Set<Product> searchItem(@PathVariable("searchedItem") String searchedItem) {
+        Set<Product> prod = productService.getSearchedData(searchedItem);
+        for (int i = 0; i < prod.size(); i++) {
+            System.out.println(prod);
+        }
+        return prod;
     }
 
 }

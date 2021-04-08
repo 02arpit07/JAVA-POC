@@ -6,6 +6,7 @@ import com.example.bct.EcommerceByArpit.entity.WishList;
 import com.example.bct.EcommerceByArpit.services.UserService;
 import com.example.bct.EcommerceByArpit.services.WishListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,11 +47,13 @@ public class WishListController {
         return "\"Product Removed\"";
     }
 
+    //Publically available without user login
     @GetMapping(ApiName.SHOW_CART)
     public List<WishList> showCart(Principal principal) {
         return wishListService.showUserProducts(userService.getUserId(principal));
     }
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping(ApiName.CHECKOUT)
     public List<OrderHistory> checkOutFromCart(Principal principal) {
         return wishListService.checkout(principal);

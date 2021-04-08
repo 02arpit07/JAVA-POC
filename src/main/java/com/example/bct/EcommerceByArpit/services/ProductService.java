@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -88,6 +86,23 @@ public class ProductService {
 
     public List<Product> getProductsByPrice(Long price1, Long price2) {
         return productRepository.findAllByPriceBetween(price1, price2);
+    }
+
+    public Set<Product> getSearchedData(String searchedItem) {
+        List<Product> productsList = productRepository.findAll();
+        Set<Product> result = new HashSet<>();
+
+        for(int i=0; i<productsList.size(); i++) {
+            if(productsList.get(i).getProductName().toLowerCase().contains(searchedItem.toLowerCase()) ||
+                    productsList.get(i).getCategory().getCategoryName().toLowerCase().contains(searchedItem.toLowerCase()) ||
+                    productsList.get(i).getManufacturerName().toLowerCase().contains(searchedItem.toLowerCase()) ||
+                    productsList.get(i).getShortDescription().toLowerCase().contains(searchedItem.toLowerCase()) ||
+                    productsList.get(i).getLongDescription().toLowerCase().contains(searchedItem.toLowerCase())) {
+
+                result.add(productsList.get(i));
+            }
+        }
+        return result;
     }
 
 

@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     UserRepository userRepository;
@@ -22,7 +22,7 @@ public class UserService {
     public User addUser(User user){
         user.setCreatedOn(new Date());
         user.setUpdatedOn(new Date());
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if (user.getUserActive())
         {
 

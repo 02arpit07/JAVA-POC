@@ -16,6 +16,7 @@ public class ApiName {
     public static final String PRODUCT_GETALLBYCATEG = "product/category/{categoryName}";
     public static final String PRODUCT_GET_ALL_BY_CATEG_AND_PRICE = "product/category/{categoryName}/{price1}/{price2}";
     public static final String PRODUCT_GET_ALL_BY_PRICE = "product/category/{price1}/{price2}";
+    public static final String SEARCH_PRODUCT = "/product/search/{searchedItem}";
 
     public static final String USER_ADD = "user/add";
     public static final String USER_GET = "user/{id}";

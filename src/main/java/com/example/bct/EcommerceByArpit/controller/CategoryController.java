@@ -4,6 +4,7 @@ import com.example.bct.EcommerceByArpit.constants.ApiName;
 import com.example.bct.EcommerceByArpit.entity.Category;
 import com.example.bct.EcommerceByArpit.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = ApiName.CATEGORY_ADD)
     public Category addCategory(@RequestBody Category category){
         return categoryService.addCategory(category);
@@ -32,6 +34,7 @@ public class CategoryController {
         return categoryService.getAllCategory();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = ApiName.CATEGORY_DELETE)
     public String deleteCategoryById(@PathVariable("id") Long id){
         return categoryService.deleteCategoryById(id);
