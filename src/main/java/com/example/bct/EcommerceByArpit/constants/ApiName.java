@@ -28,4 +28,8 @@ public class ApiName {
     public static final String  REMOVE_FROM_CART = "removeFromCart/{productId}";
     public static final String  SHOW_CART = "/showCart";
     public static final String  CHECKOUT = "/checkout";
+    public static final String ORDER_HISTORY ="/orderHistory";
+
+    public static final String SHIPPING_INFO_ADD = "/shippingInfo";
+    public static final String SHIPPING_INFO_GET = "/getShippingInfo";
 }

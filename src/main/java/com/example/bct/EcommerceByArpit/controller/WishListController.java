@@ -3,15 +3,13 @@ package com.example.bct.EcommerceByArpit.controller;
 import com.example.bct.EcommerceByArpit.constants.ApiName;
 import com.example.bct.EcommerceByArpit.entity.OrderHistory;
 import com.example.bct.EcommerceByArpit.entity.WishList;
+import com.example.bct.EcommerceByArpit.services.CustomerService;
 import com.example.bct.EcommerceByArpit.services.UserService;
 import com.example.bct.EcommerceByArpit.services.WishListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -20,43 +18,55 @@ import static com.example.bct.EcommerceByArpit.constants.ApiName.COMMON;
 
 @RestController
 @RequestMapping(value = COMMON)
+@CrossOrigin(origins = "*")
 public class WishListController {
 
     @Autowired
     WishListService wishListService;
 
+//    @Autowired
+//    UserService userService;
     @Autowired
-    UserService userService;
+    CustomerService customerService;
 
 
-    @GetMapping(ApiName.ADD_TO_CART)
+    @PostMapping(ApiName.ADD_TO_CART)
     public String addToCart(@PathVariable("productId") Long productId, Principal principal) {
-        wishListService.addProductToWishlist(userService.getUserId(principal), productId);
+        System.out.println(principal.getName());
+//        System.out.println(productId+"....................");
+        wishListService.addProductToWishlist(customerService.getUserId(principal), productId);
         return "\"Added Product To Cart\"";
     }
 
-    @GetMapping(ApiName.SUBTRACT_ONE_FROM_WISHLIST)
+    @PostMapping(ApiName.SUBTRACT_ONE_FROM_WISHLIST)
     public String subtractProductFromWishList(@PathVariable("productId")Long productId, Principal principal) {
-        wishListService.subtractProductFromWishList(userService.getUserId(principal),productId);
-        return "removed one product from wishlist";
+        wishListService.subtractProductFromWishList(customerService.getUserId(principal),productId);
+        return "\"removed one product from wishlist\"";
     }
 
-    @GetMapping(ApiName.REMOVE_FROM_CART)
+    @PostMapping(ApiName.REMOVE_FROM_CART)
     public String removeFromCart(@PathVariable("productId") Long productId, Principal principal) {
-        wishListService.removeProductFromWishList(userService.getUserId(principal), productId);
+        wishListService.removeProductFromWishList(customerService.getUserId(principal), productId);
         return "\"Product Removed\"";
     }
 
     //Publically available without user login
     @GetMapping(ApiName.SHOW_CART)
     public List<WishList> showCart(Principal principal) {
-        return wishListService.showUserProducts(userService.getUserId(principal));
+        return wishListService.showUserProducts(customerService.getUserId(principal));
     }
 
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping(ApiName.CHECKOUT)
     public List<OrderHistory> checkOutFromCart(Principal principal) {
         return wishListService.checkout(principal);
+
+    }
+
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping(ApiName.ORDER_HISTORY)
+    public List<OrderHistory> showOrderHistory(Principal principal) {
+        return wishListService.showOrderHistory(principal);
 
     }
 }

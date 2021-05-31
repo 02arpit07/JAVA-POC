@@ -1,5 +1,6 @@
 package com.example.bct.EcommerceByArpit.repository;
 
+import com.example.bct.EcommerceByArpit.entity.Customer;
 import com.example.bct.EcommerceByArpit.entity.Product;
 import com.example.bct.EcommerceByArpit.entity.User;
 import com.example.bct.EcommerceByArpit.entity.WishList;
@@ -12,12 +13,12 @@ import java.util.List;
 @Repository
 public interface WishListRepository extends JpaRepository<WishList,Long> {
 
-    Object findByUserAndProduct(User user, Product product);
+    Object findByCustomerAndProduct(Customer customer, Product product);
 
-    List<WishList> findByUser(User user);
+    List<WishList> findByCustomer(Customer customer);
 
-    String deleteAllByUserAndProduct(User user, Product product);
+    String deleteAllByCustomerAndProduct(Customer customer, Product product);
 
-    ArrayList<WishList> findAllByUser(User user);
+    ArrayList<WishList> findAllByCustomer(Customer customer);
 
 }

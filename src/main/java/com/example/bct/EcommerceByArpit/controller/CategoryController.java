@@ -13,6 +13,7 @@ import static com.example.bct.EcommerceByArpit.constants.ApiName.COMMON;
 
 @RestController
 @RequestMapping(value = COMMON)
+@CrossOrigin(origins = "*")
 public class CategoryController {
 
     @Autowired

@@ -24,17 +24,17 @@ public class WishList {
     Product product;
 
     @ManyToOne
-    User user;
+    Customer customer;
 
     public WishList() {
     }
 
-    public WishList(int quantity, Long pricePerUnit, String productName, Product product, User user) {
+    public WishList(int quantity, Long pricePerUnit, String productName, Product product, Customer customer) {
         this.quantity = quantity;
         this.pricePerUnit = pricePerUnit;
         this.productName = productName;
         this.product = product;
-        this.user = user;
+        this.customer = customer;
     }
 
     public Long getId() {
@@ -77,12 +77,12 @@ public class WishList {
         this.product = product;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class WishList {
                 ", pricePerUnit=" + pricePerUnit +
                 ", productName='" + productName + '\'' +
                 ", product=" + product +
-                ", user=" + user +
+                ", customer=" + customer +
                 '}';
     }
 }

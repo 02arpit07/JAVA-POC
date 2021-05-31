@@ -54,7 +54,7 @@ public class Product {
 
     @Column(name = "created_on")
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern="yyyy-MM-dd" , timezone = "Asia/Kolkata")
+//    @JsonFormat(pattern="yyyy-MM-dd" , timezone = "Asia/Kolkata")
     private Date createdOn;
 
     @Column(name = "updatedon")
